@@ -26,6 +26,25 @@ def send_welcome(m):
 def bantuan(m):
 	bot.send_message(m.chat.id,text_messages['info'])
 
+# ini bisa dipanggil kalau ngetik /absensi di bot
+@bot.message_handler(commands=['absensi'])
+# ini fungsi untuk absensi
+def absensi(m):
+	bot.send_message(m.chat.id, "Hai, ini absensi")
+
+# Fungsi untuk callback yang ada di app/rules.py
+@bot.callback_query_handler(func=lambda call: True)
+def callbackQuery(c):
+	try:
+		# sesuaikan dengan pengaturan yang ada di app/rules.py callback_data
+		# contoh admin_bantu
+		if c.data == "admin_bantu":
+			bantuan(c.message)
+		elif c.data == "admin_absensi":
+			absensi(c.message)
+	except Exception as e:
+		print(e)
+
 def telegram_polling():
 	try:
 		bot.polling(none_stop=True)
