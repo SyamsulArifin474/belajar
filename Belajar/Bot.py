@@ -3,6 +3,7 @@ from telebot import types
 from app.rules import inlineForWali
 from config import conf, text_messages
 import flask
+from app import views
 
 app = flask.Flask(__name__)
 
@@ -30,7 +31,7 @@ def bantuan(m):
 @bot.message_handler(commands=['absensi'])
 # ini fungsi untuk absensi
 def absensi(m):
-	bot.send_message(m.chat.id, "Hai, ini absensi")
+	bot.send_message(m.chat.id, views.absensi())
 
 # Fungsi untuk callback yang ada di app/rules.py
 @bot.callback_query_handler(func=lambda call: True)
